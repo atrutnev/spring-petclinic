@@ -20,7 +20,7 @@ node {
     stage('Start Docker container') {
         try {
             sh "docker container run -d -p ${docker_host_port}:${docker_container_port} ${params.DOCKER_IMAGE_TAG}"
-            echo "The container started successfully. Point to http://localhost:8080 to see the application main page."
+            echo "The container started successfully. Point to http://localhost:30000 to see the application main page."
         } catch (err) {
             error "Failed to start Docker container: ${err}"
         }
