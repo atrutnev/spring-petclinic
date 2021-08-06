@@ -16,7 +16,7 @@ node {
         try {
             def docker_image_tag = "${BRANCH_NAME}_${BUILD_NUMBER}"
             echo ${docker_image_tag}
-        } catch {
+        } catch (err) {
             error "Failed to create a tag"
         }
     }
