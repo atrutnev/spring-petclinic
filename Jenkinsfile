@@ -15,7 +15,7 @@ node {
     stage('Create Docker image') {
         try {
             def docker_image_tag = "${BRANCH_NAME}_${BUILD_NUMBER}"
-            echo ${docker_image_tag}
+            echo "${docker_image_tag}"
         } catch (err) {
             error "Failed to create a tag"
         }
