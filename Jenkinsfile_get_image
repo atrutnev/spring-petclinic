@@ -1,0 +1,28 @@
+node {
+    // Checkout from Git
+    checkout scm
+
+    // Use this port on the host machine for mapping to container port.
+    def docker_host_port = '30000'
+    def docker_container_port = '8080'
+
+    // Pull the image with specific tag from the local registry.
+    // The tag should be provided as a build parameter DOCKER_IMAGE_TAG.
+    stage('Pull the image from local registry') {
+        try {
+            sh "docker pull ${params.DOCKER_IMAGE_TAG}"
+        } catch (err) {
+            error "Failed to pull the image from the registry: ${err}"
+        }
+    }
+
+    // Create Docker image with specific tag for local registry
+    stage('Start Docker container') {
+        try {
+            sh "docker container run -d -p ${docker_host_port}:${docker_container_port} ${params.DOCKER_IMAGE_TAG}"
+            echo "The container started successfully. Point to http://localhost:8080 to see the application main page."
+        } catch (err) {
+            error "Failed to start Docker container: ${err}"
+        }
+    }
+}
